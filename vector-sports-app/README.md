@@ -1,3 +1,4 @@
+Hi this is Imdad 
 # Vector Sports App
 
 A comprehensive platform for athletes and coaches to monitor performance, track fitness metrics, and manage training schedules using the Vector Band device.
