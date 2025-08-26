@@ -1,17 +1,54 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Zap } from "lucide-react"
 import { KPICards } from "@/components/dashboard/kpi-cards"
-import { PerformanceCharts } from "@/components/dashboard/performance-charts"
-import { HeatMap } from "@/components/dashboard/heat-map"
-import { AIInsights } from "@/components/dashboard/ai-insights"
-import { RecentActivity } from "@/components/dashboard/recent-activity"
 import { CoachHeader } from "@/components/coach/coach-header"
 import { useSelectedAthlete } from "@/context/selected-athlete-context"
 import { MainNav } from "@/components/main-nav"
+
+// Dynamically import heavy components
+const PerformanceCharts = dynamic(
+  () => import("@/components/dashboard/performance-charts").then(mod => ({ default: mod.PerformanceCharts })),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="space-y-6">
+        <Skeleton className="h-[300px] w-full" />
+        <Skeleton className="h-[250px] w-full" />
+        <Skeleton className="h-[250px] w-full" />
+      </div>
+    )
+  }
+)
+
+const HeatMap = dynamic(
+  () => import("@/components/dashboard/heat-map").then(mod => ({ default: mod.HeatMap })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[400px] w-full" />
+  }
+)
+
+const AIInsights = dynamic(
+  () => import("@/components/dashboard/ai-insights").then(mod => ({ default: mod.AIInsights })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[300px] w-full" />
+  }
+)
+
+const RecentActivity = dynamic(
+  () => import("@/components/dashboard/recent-activity").then(mod => ({ default: mod.RecentActivity })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[400px] w-full" />
+  }
+)
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("overview")

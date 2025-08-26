@@ -1,16 +1,26 @@
 "use client"
 
 import { useState } from "react"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
 import { DeviceCard } from "@/components/devices/device-card"
 import { AddDeviceDialog } from "@/components/devices/add-device-dialog"
 import { SyncStatus } from "@/components/devices/sync-status"
-import { DeviceAnalytics } from "@/components/devices/device-analytics"
 import { Smartphone, Plus, Wifi, WifiOff, RefreshCw, Zap } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { MainNav } from "@/components/main-nav"
+
+// Dynamically import heavy analytics component
+const DeviceAnalytics = dynamic(
+  () => import("@/components/devices/device-analytics").then(mod => ({ default: mod.DeviceAnalytics })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[300px] w-full" />
+  }
+)
 
 const connectedDevices = [
   {
@@ -76,21 +86,6 @@ export default function DevicesPage() {
               <h1 className="text-2xl font-bold">Vector Band</h1>
               <p className="text-muted-foreground">Monitor and manage your Vector Band device</p>
             </div>
-          </div>
-          <div className="flex gap-3 items-center">
-            <Button
-              variant="outline"
-              onClick={handleSyncAll}
-              disabled={syncingAll}
-              className="flex items-center gap-2"
-            >
-              <RefreshCw className={`h-4 w-4 ${syncingAll ? "animate-spin" : ""}`} />
-              {syncingAll ? "Syncing..." : "Sync All"}
-            </Button>
-            <Button onClick={() => setShowAddDevice(true)} className="bg-blue-600 hover:bg-blue-700">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Device
-            </Button>
           </div>
         </div>
 

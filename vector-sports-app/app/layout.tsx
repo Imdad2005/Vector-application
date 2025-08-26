@@ -10,12 +10,14 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-space-grotesk",
+  preload: true,
 })
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-dm-sans",
+  preload: true,
 })
 
 export const metadata: Metadata = {

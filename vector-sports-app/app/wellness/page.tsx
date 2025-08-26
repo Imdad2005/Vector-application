@@ -1,16 +1,47 @@
 "use client"
 
 import { useState } from "react"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Zap, Plus } from "lucide-react"
 import { DailyCheckIn } from "@/components/wellness/daily-check-in"
-import { WellnessTrends } from "@/components/wellness/wellness-trends"
-import { RecoveryStatus } from "@/components/wellness/recovery-status"
-import { WellnessHistory } from "@/components/wellness/wellness-history"
-import { SleepAnalysis } from "@/components/wellness/sleep-analysis"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { MainNav } from "@/components/main-nav"
+
+// Dynamically import heavy wellness components
+const WellnessTrends = dynamic(
+  () => import("@/components/wellness/wellness-trends").then(mod => ({ default: mod.WellnessTrends })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[300px] w-full" />
+  }
+)
+
+const RecoveryStatus = dynamic(
+  () => import("@/components/wellness/recovery-status").then(mod => ({ default: mod.RecoveryStatus })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[250px] w-full" />
+  }
+)
+
+const WellnessHistory = dynamic(
+  () => import("@/components/wellness/wellness-history").then(mod => ({ default: mod.WellnessHistory })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[400px] w-full" />
+  }
+)
+
+const SleepAnalysis = dynamic(
+  () => import("@/components/wellness/sleep-analysis").then(mod => ({ default: mod.SleepAnalysis })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[400px] w-full" />
+  }
+)
 
 export default function WellnessPage() {
   const [activeTab, setActiveTab] = useState("checkin")
