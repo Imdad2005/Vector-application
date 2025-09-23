@@ -3,6 +3,7 @@
 import { useState, Suspense } from "react"
 import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollSpyTabs, ScrollSpyTabsList, ScrollSpyTabsTrigger, ScrollSpyTabsContent } from "@/components/ui/scroll-spy-tabs"
 import { SwipeIndicator } from "@/components/ui/swipe-indicator"
@@ -48,6 +49,14 @@ const AIInsights = dynamic(
 
 const RecentActivity = dynamic(
   () => import("@/components/dashboard/recent-activity").then(mod => ({ default: mod.RecentActivity })),
+  { 
+    ssr: false,
+    loading: () => <Skeleton className="h-[400px] w-full" />
+  }
+)
+
+const WeeklyGoalChart = dynamic(
+  () => import("@/components/dashboard/weekly-goal-chart").then(mod => ({ default: mod.WeeklyGoalChart })),
   { 
     ssr: false,
     loading: () => <Skeleton className="h-[400px] w-full" />
@@ -155,12 +164,58 @@ export default function DashboardPage() {
 
           <ScrollSpyTabsContent value="overview" onSwipe={handleSwipe} className="space-y-6">
             <KPICards />
-            <div className="grid lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2">
-                <PerformanceCharts />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              {/* Left side - Weekly Goal Progress Chart */}
+              <div className="lg:col-span-5">
+                <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+                  <WeeklyGoalChart />
+                </Suspense>
               </div>
-              <div>
+              
+              {/* Right side - Recent Activity and other content */}
+              <div className="lg:col-span-7 space-y-6">
                 <RecentActivity />
+                
+                {/* Performance metrics cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Card className="p-4">
+                    <div className="space-y-2">
+                      <h3 className="font-semibold text-sm text-muted-foreground">This Week</h3>
+                      <div className="text-2xl font-bold">7 Sessions</div>
+                      <p className="text-sm text-green-600 flex items-center gap-1">
+                        <span className="text-xs">↗</span>
+                        +2 from last week
+                      </p>
+                    </div>
+                  </Card>
+                  <Card className="p-4">
+                    <div className="space-y-2">
+                      <h3 className="font-semibold text-sm text-muted-foreground">Average Load</h3>
+                      <div className="text-2xl font-bold">92%</div>
+                      <p className="text-sm text-blue-600 flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                        Optimal range
+                      </p>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* Quick actions */}
+                <Card className="p-4">
+                  <h3 className="font-semibold text-sm text-muted-foreground mb-3">Quick Actions</h3>
+                  <div className="flex flex-wrap gap-2">
+                    <Button variant="outline" size="sm" className="text-xs">
+                      <Zap className="h-3 w-3 mr-1" />
+                      Start Session
+                    </Button>
+                    <Button variant="outline" size="sm" className="text-xs">
+                      View Report
+                    </Button>
+                    <Button variant="outline" size="sm" className="text-xs">
+                      Sync Devices
+                    </Button>
+                  </div>
+                </Card>
               </div>
             </div>
           </ScrollSpyTabsContent>
@@ -169,14 +224,18 @@ export default function DashboardPage() {
             <EMGDashboard />
           </ScrollSpyTabsContent>
 
-          <ScrollSpyTabsContent value="performance" onSwipe={handleSwipe} className="space-y-6">
-            <PerformanceCharts />
-            <HeatMap />
-          </ScrollSpyTabsContent>
-
           <ScrollSpyTabsContent value="analytics" onSwipe={handleSwipe} className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
-              <HeatMap />
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              <div className="order-2 xl:order-1">
+                <HeatMap />
+              </div>
+              <div className="order-1 xl:order-2">
+                <Suspense fallback={<Skeleton className="h-[400px] w-full" />}>
+                  <WeeklyGoalChart />
+                </Suspense>
+              </div>
+            </div>
+            <div className="mt-6">
               <PerformanceCharts />
             </div>
           </ScrollSpyTabsContent>
