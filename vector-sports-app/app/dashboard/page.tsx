@@ -67,7 +67,7 @@ export default function DashboardPage() {
   const { selectedAthleteId, isCoach } = useSelectedAthlete()
   
   // Define tab order for scroll spy
-  const tabOrder = ['overview', 'emg', 'performance', 'analytics', 'insights']
+  const tabOrder = ['overview', 'emg', 'analytics', 'insights']
   
   const {
     activeTab,
@@ -147,10 +147,6 @@ export default function DashboardPage() {
             <ScrollSpyTabsTrigger value="emg">
               <span className="hidden sm:inline">EMG Sensor</span>
               <span className="sm:hidden">EMG</span>
-            </ScrollSpyTabsTrigger>
-            <ScrollSpyTabsTrigger value="performance">
-              <span className="hidden sm:inline">Performance</span>
-              <span className="sm:hidden">Perf</span>
             </ScrollSpyTabsTrigger>
             <ScrollSpyTabsTrigger value="analytics">
               <span className="hidden sm:inline">Analytics</span>
