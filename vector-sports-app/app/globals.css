@@ -128,3 +128,70 @@
     font-family: var(--font-heading);
   }
 }
+
+/* Mobile tabs enhancement */
+@layer components {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Enhanced mobile tab visibility */
+  @media (max-width: 640px) {
+    [data-state="active"] {
+      @apply bg-primary text-primary-foreground shadow-lg font-semibold border-2 border-primary;
+    }
+    
+    [data-state="inactive"] {
+      @apply bg-muted/90 text-muted-foreground font-medium hover:bg-muted hover:text-foreground border-2 border-transparent;
+    }
+    
+    /* Increase tap targets for mobile */
+    .mobile-tab-trigger {
+      @apply min-h-[48px] min-w-[60px] touch-manipulation;
+    }
+    
+    /* Scroll spy tabs specific styles */
+    .scroll-spy-tabs {
+      @apply overflow-x-auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+    
+    .scroll-spy-tabs > * {
+      scroll-snap-align: start;
+    }
+    
+    /* Swipe content area */
+    .swipe-content {
+      touch-action: pan-y pinch-zoom;
+      overscroll-behavior-x: contain;
+    }
+  }
+  
+  /* Tab spacing and visibility improvements */
+  .mobile-tabs-list {
+    @apply shadow-sm bg-card/95 backdrop-blur-sm border border-border/50;
+  }
+  
+  /* Scroll indicators */
+  .scroll-indicators {
+    @apply flex justify-center gap-1 mt-2;
+  }
+  
+  .scroll-indicator {
+    @apply w-2 h-2 rounded-full transition-colors;
+  }
+  
+  .scroll-indicator.active {
+    @apply bg-primary;
+  }
+  
+  .scroll-indicator.inactive {
+    @apply bg-muted-foreground/30;
+  }
+}
