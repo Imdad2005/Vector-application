@@ -145,8 +145,8 @@ export default function DashboardPage() {
               <span className="sm:hidden">Home</span>
             </ScrollSpyTabsTrigger>
             <ScrollSpyTabsTrigger value="emg">
-              <span className="hidden sm:inline">EMG Sensor</span>
-              <span className="sm:hidden">EMG</span>
+              <span className="hidden sm:inline">Live Data Streaming</span>
+              <span className="sm:hidden">Live</span>
             </ScrollSpyTabsTrigger>
             <ScrollSpyTabsTrigger value="analytics">
               <span className="hidden sm:inline">Analytics</span>

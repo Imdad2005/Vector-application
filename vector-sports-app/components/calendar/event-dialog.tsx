@@ -49,7 +49,7 @@ export function EventDialog({ open, onOpenChange, event }: EventDialogProps) {
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-blue-600" />
+            <Calendar className="h-5 w-5" style={{color: '#90b7d1'}} />
             {event ? "Edit Event" : "Create New Event"}
           </DialogTitle>
         </DialogHeader>
@@ -197,7 +197,7 @@ export function EventDialog({ open, onOpenChange, event }: EventDialogProps) {
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+            <Button type="submit" className="hover:opacity-90" style={{backgroundColor: '#90b7d1'}}>
               {event ? "Update Event" : "Create Event"}
             </Button>
           </div>

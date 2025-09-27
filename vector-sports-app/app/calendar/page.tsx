@@ -13,7 +13,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { MainNav } from "@/components/main-nav"
 
 const eventTypes = [
-  { id: "training", label: "Training", color: "bg-blue-500", count: 12 },
+  { id: "training", label: "Training", color: "", count: 12 },
   { id: "competition", label: "Competition", color: "bg-red-500", count: 3 },
   { id: "recovery", label: "Recovery", color: "bg-green-500", count: 8 },
   { id: "meeting", label: "Meeting", color: "bg-purple-500", count: 5 },
@@ -76,7 +76,7 @@ export default function CalendarPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-600 rounded-lg">
+            <div className="p-2 rounded-lg" style={{ backgroundColor: '#90b7d1' }}>
               <CalendarIcon className="h-6 w-6 text-white" />
             </div>
             <div>
@@ -86,7 +86,7 @@ export default function CalendarPage() {
           </div>
           
           <div className="flex gap-2 items-center">
-            <Button onClick={() => setShowEventDialog(true)} className="bg-blue-600 hover:bg-blue-700">
+            <Button onClick={() => setShowEventDialog(true)} style={{ backgroundColor: '#90b7d1' }} className="hover:opacity-90">
               <Plus className="h-4 w-4 mr-2" />
               New Event
             </Button>
@@ -109,12 +109,16 @@ export default function CalendarPage() {
                   <div
                     key={type.id}
                     className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${
-                      selectedFilters.includes(type.id) ? "bg-blue-50 border border-blue-200" : "hover:bg-gray-50"
+                      selectedFilters.includes(type.id) ? "border" : "hover:bg-gray-50"
                     }`}
+                    style={selectedFilters.includes(type.id) ? { backgroundColor: 'rgba(144, 183, 209, 0.1)', borderColor: '#90b7d1' } : {}}
                     onClick={() => toggleFilter(type.id)}
                   >
                     <div className="flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full ${type.color}`} />
+                      <div 
+                        className={`w-3 h-3 rounded-full ${type.color}`} 
+                        style={type.id === 'training' ? { backgroundColor: '#90b7d1' } : {}}
+                      />
                       <span className="text-sm font-medium">{type.label}</span>
                     </div>
                     <Badge variant="secondary" className="text-xs">
@@ -153,7 +157,8 @@ export default function CalendarPage() {
                         variant={view === viewType ? "default" : "outline"}
                         size="sm"
                         onClick={() => setView(viewType)}
-                        className={view === viewType ? "bg-blue-600 hover:bg-blue-700" : ""}
+                        style={view === viewType ? { backgroundColor: '#90b7d1' } : {}}
+                        className={view === viewType ? "hover:opacity-90" : ""}
                       >
                         {viewType.charAt(0).toUpperCase() + viewType.slice(1)}
                       </Button>

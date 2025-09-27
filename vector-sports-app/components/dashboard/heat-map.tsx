@@ -14,9 +14,9 @@ const heatMapData = [
 
 const getIntensityColor = (value: number) => {
   if (value === 0) return "bg-muted"
-  if (value === 1) return "bg-green-200 dark:bg-green-900"
-  if (value === 2) return "bg-green-400 dark:bg-green-700"
-  if (value === 3) return "bg-green-600 dark:bg-green-500"
+  if (value === 1) return "bg-blue-200 dark:bg-blue-900"
+  if (value === 2) return "bg-blue-400 dark:bg-blue-700"
+  if (value === 3) return "bg-blue-600 dark:bg-blue-500"
   return "bg-muted"
 }
 

@@ -64,7 +64,10 @@ export function EventList() {
           <div key={event.id} className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
             <div className="flex items-start justify-between mb-2">
               <h4 className="font-medium text-sm">{event.title}</h4>
-              <div className={`w-2 h-2 rounded-full ${event.color}`} />
+              <div 
+                className={`w-2 h-2 rounded-full ${event.type === 'training' ? '' : event.color}`}
+                style={event.type === 'training' ? { backgroundColor: '#90b7d1' } : {}}
+              />
             </div>
 
             <div className="space-y-1 text-xs text-gray-600">
