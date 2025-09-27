@@ -115,20 +115,20 @@ export function CalendarGrid({ currentDate, view, selectedFilters, onEventClick 
           {days.map((date, index) => (
             <div
               key={index}
-              className={`min-h-[100px] p-2 border rounded-lg cursor-pointer transition-colors ${
+              className={`min-h-[100px] p-2 border rounded-lg cursor-pointer transition-all duration-200 ${
                 date
                   ? isToday(date)
-                    ? "bg-blue-50 border-blue-200"
+                    ? "bg-blue-200 border-blue-300 shadow-md"
                     : isSelected(date)
-                      ? "bg-gray-100 border-gray-300"
-                      : "bg-white border-gray-200 hover:bg-gray-50"
-                  : "bg-gray-50 border-gray-100"
+                      ? "bg-blue-100 border-blue-200 shadow-sm"
+                      : "bg-blue-25 border-blue-100 hover:bg-blue-50 hover:border-blue-200 hover:shadow-sm"
+                  : "bg-gray-60order-gray-100 opacity-60"
               }`}
               onClick={() => date && setSelectedDate(date)}
             >
               {date && (
                 <>
-                  <div className={`text-sm font-medium mb-1 ${isToday(date) ? "text-blue-600" : "text-gray-900"}`}>
+                  <div className={`text-sm font-medium mb-1 ${isToday(date) ? "text-gray-900 font-bold" : isSelected(date) ? "text-gray-800 font-semibold" : "text-gray-700"}`}>
                     {date.getDate()}
                   </div>
                   <div className="space-y-1">
